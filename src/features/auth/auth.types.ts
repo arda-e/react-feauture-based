@@ -1,9 +1,9 @@
-// Define the type for your user, token, and error
 export enum Roles {
   'admin',
   'user',
 }
 
+// TODO: Implement real user interface for the user object
 export interface User {
   id: number
   username: string

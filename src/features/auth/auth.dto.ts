@@ -5,7 +5,7 @@ export interface GetPublicKeyResponse {
   value: string
 }
 
-const LoginRequestSchema = z.object({
+export const LoginRequestSchema = z.object({
   username: z
     .string({
       required_error: 'Username is required',

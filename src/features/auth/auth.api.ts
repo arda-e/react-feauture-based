@@ -1,4 +1,4 @@
-import { apiSlice } from '@/stores/api'
+import { apiSlice } from '../../stores/api'
 import { GetPublicKeyResponse, LoginRequest, LoginResponse, LogoutRequest, LogoutResponse } from './auth.dto'
 import { logOut, setCredentials } from './auth.slice'
 import { setApiError } from '../error'
@@ -17,7 +17,7 @@ export const authApi = apiSlice.injectEndpoints({
         body: { username, password },
       }),
       extraOptions: {},
-      async onQueryStarted(/*{ username, password } */ _, { dispatch, queryFulfilled }) {
+      async onQueryStarted(/*{ username, password }*/ _, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
           dispatch(setCredentials({ accessToken: data.token }))
@@ -36,6 +36,7 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           await queryFulfilled
           dispatch(logOut())
+          // TODO: Make necessary type conversions and check if this is the correct place to do this.
         } catch (error: unknown) {
           dispatch(setApiError(error as ApiError))
         }

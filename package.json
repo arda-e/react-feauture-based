@@ -17,6 +17,7 @@
   "author": "Meric Arda Eren",
   "license": "ISC",
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
