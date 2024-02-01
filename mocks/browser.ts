@@ -1,10 +1,6 @@
-import { http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
+import authHandlers from './handler.auth'
 
-const handlers = [
-  http.get('http://localhost:3500/security/public-key/', ({ params }) => {
-    return HttpResponse.json({ id: params.id, title: 'Porcelain Mug', price: 9.99 })
-  }),
-]
+const handlers = [...authHandlers]
 
 export const worker = setupWorker(...handlers)
