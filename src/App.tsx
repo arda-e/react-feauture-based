@@ -7,13 +7,16 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { store } from '@/stores'
 import { AppRoutes } from '@/routes'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 const App = () => {
   return (
     <>
       <Provider store={store}>
         {/* Add any provider here */}
-        <AppRoutes />
+        <Router>
+          <AppRoutes />
+        </Router>
       </Provider>
     </>
   )

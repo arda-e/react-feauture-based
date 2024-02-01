@@ -22,4 +22,5 @@ const AppRoutes = () => {
 
   return <Suspense fallback={<Spinner />}>{element}</Suspense>
 }
+
 export default AppRoutes
