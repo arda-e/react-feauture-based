@@ -1,7 +1,11 @@
-import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setCredentials, logOut } from '@/features/auth'
+import {
+  // BaseQueryFn, FetchArgs, FetchBaseQueryError,
+  createApi,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react'
+// import { setCredentials, logOut } from '@/features/auth'
 // import { setApiError } from '@/features/error/'
-import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes'
+// import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes'
 
 interface AuthState {
   token: string
@@ -12,10 +16,10 @@ interface RootState {
   auth: AuthState
 }
 
-interface RefreshResponse {
-  accessToken: string
-  // include other properties returned by your /refresh endpoint
-}
+// interface RefreshResponse {
+//   accessToken: string
+//   // include other properties returned by your /refresh endpoint
+// }
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:3500',
@@ -30,40 +34,40 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
-const baseQueryWithReauth: BaseQueryFn<
-  string | FetchArgs,
-  unknown,
-  FetchBaseQueryError,
-  Record<string, never>,
-  never
-> = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions)
+// const baseQueryWithReauth: BaseQueryFn<
+//   string | FetchArgs,
+//   unknown,
+//   FetchBaseQueryError,
+//   Record<string, never>,
+//   never
+// > = async (args, api, extraOptions) => {
+//   let result = await baseQuery(args, api, extraOptions)
 
-  if (result.error) {
-    // Dispatch centralized error action
-    // TODO: Fix
-    // api.dispatch(setApiError(`API Error: ${result.error.status} - ${result.error.data}`));
+//   if (result.error) {
+//     // Dispatch centralized error action
+//     // TODO: Fix
+//     // api.dispatch(setApiError(`API Error: ${result.error.status} - ${result.error.data}`));
 
-    if (result.error.status === 403) {
-      // TODO: LOGGER
-      //console.log('sending refresh token');
-      const refreshResult = (await baseQuery('/refresh', api, extraOptions)) as { data: RefreshResponse }
-      // console.log(refreshResult);
+//     if (result.error.status === 403) {
+//       // TODO: LOGGER
+//       //console.log('sending refresh token');
+//       const refreshResult = (await baseQuery('/refresh', api, extraOptions)) as { data: RefreshResponse }
+//       // console.log(refreshResult);
 
-      if (refreshResult?.data) {
-        // const user = (api.getState() as RootState).auth.user;
-        api.dispatch(setCredentials({ /* user, */ accessToken: refreshResult.data.accessToken }))
-        result = await baseQuery(args, api, extraOptions) // retry original query
-      } else {
-        api.dispatch(logOut())
-      }
-    }
-  }
+//       if (refreshResult?.data) {
+//         // const user = (api.getState() as RootState).auth.user;
+//         api.dispatch(setCredentials({ /* user, */ accessToken: refreshResult.data.accessToken }))
+//         result = await baseQuery(args, api, extraOptions) // retry original query
+//       } else {
+//         api.dispatch(logOut())
+//       }
+//     }
+//   }
 
-  return result as QueryReturnValue<unknown, FetchBaseQueryError, never>
-}
+//   return result as QueryReturnValue<unknown, FetchBaseQueryError, never>
+// }
 
 export const apiSlice = createApi({
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   endpoints: () => ({}),
 })

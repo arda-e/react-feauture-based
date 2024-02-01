@@ -2,10 +2,11 @@ import React from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { LoginRequest, LoginRequestSchema } from '../../auth.dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useLoginMutation } from '../../auth.api'
+import { useGetPublicKeyQuery, useLoginMutation } from '../../auth.api'
 
 const Form = () => {
   const [login, result] = useLoginMutation()
+  useGetPublicKeyQuery()
 
   const methods = useForm<LoginRequest>({
     resolver: zodResolver(LoginRequestSchema),
