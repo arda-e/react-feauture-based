@@ -1,4 +1,5 @@
 import * as z from 'zod'
+import { User } from './auth.types'
 
 export interface GetPublicKeyResponse {
   type: string
@@ -26,7 +27,12 @@ export const LoginRequestSchema = z.object({
 
 export type LoginRequest = z.infer<typeof LoginRequestSchema>
 export interface LoginResponse {
-  token: string
+  message: string
+  user: User
+  licenseState: boolean
+  accessToken: string
+  refreshToken: string
+  firstLogin: boolean
 }
 
 export type LogoutResponse = boolean

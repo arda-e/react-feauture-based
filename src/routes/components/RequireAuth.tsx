@@ -1,13 +1,13 @@
 import { useLocation, Navigate, Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectCurrentUser } from '@/features/auth'
-import { User, Roles } from '@/features/auth/auth.types'
+import { User, Role } from '@/features/auth/auth.types'
 
-const isCurrentUserAuthorized = (user: User, allowedRoles: Roles[]) => {
+const isCurrentUserAuthorized = (user: User, allowedRoles: Role[]) => {
   return user.roles.find((role) => allowedRoles.includes(role))
 }
 
-const RequireAuth = ({ allowedRoles }: { allowedRoles: Roles[] }) => {
+const RequireAuth = ({ allowedRoles }: { allowedRoles: Role[] }) => {
   const user = useSelector(selectCurrentUser)
   const location = useLocation()
 

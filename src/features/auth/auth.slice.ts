@@ -4,23 +4,31 @@
 */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { createSelector } from 'reselect'
-import { AuthState } from './auth.types'
+import { AuthState, User } from './auth.types'
 
 const initialState: AuthState = {
   user: null,
   token: null,
+  publicKey: null,
 }
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (state, action: PayloadAction<{ accessToken: string }>) => {
-      const { accessToken } = action.payload
+    setCredentials: (state, action: PayloadAction<{ accessToken: string; user: User }>) => {
+      const { accessToken, user } = action.payload
       state.token = accessToken
+      state.user = user
+    },
+    setPublicKey: (state, action: PayloadAction<{ publicKey: string }>) => {
+      const { publicKey } = action.payload
+      state.publicKey = publicKey
     },
     logOut: (state) => {
       state.token = null
+      state.user = null
+      state.publicKey = null
     },
   },
 })
@@ -28,6 +36,6 @@ const authSlice = createSlice({
 const selectAuthState = (state: { auth: AuthState }) => state.auth
 export const selectCurrentUser = createSelector(selectAuthState, (auth: AuthState) => auth.user)
 export const selectCurrentToken = createSelector(selectAuthState, (auth: AuthState) => auth.token)
-
-export const { setCredentials, logOut } = authSlice.actions
+export const selectPublicKey = createSelector(selectAuthState, (auth: AuthState) => auth.publicKey)
+export const { setCredentials, logOut, setPublicKey } = authSlice.actions
 export default authSlice.reducer
