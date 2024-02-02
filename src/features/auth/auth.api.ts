@@ -1,4 +1,4 @@
-import { apiSlice } from '../../stores/api'
+import { apiSlice } from '@/stores'
 import { GetPublicKeyResponse, LoginRequest, LoginResponse, LogoutRequest, LogoutResponse } from './auth.dto'
 import { logOut, setCredentials } from './auth.slice'
 import { setApiError } from '../error'
@@ -7,7 +7,7 @@ import { ApiError } from '../error/error.types'
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPublicKey: builder.query<GetPublicKeyResponse, void>({
-      query: () => `/security/public-key/`,
+      query: () => `/security/public-key`,
       extraOptions: {},
     }),
     login: builder.mutation<LoginResponse, LoginRequest>({
