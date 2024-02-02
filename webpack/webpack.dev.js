@@ -13,12 +13,11 @@ module.exports = {
     historyApiFallback: true,
     port: process.env.REACT_APP_PORT || 3000,
     proxy: {
-      '/api/v1': {
+      '/api': {
         target: `http://localhost:${process.env.REACT_APP_PORT || 3000}`,
         router: () => `${process.env.BEND_URL}`,
         changeOrigin: true,
         secure: false,
-        pathRewrite: { '^/api/v1': '' },
       },
     },
   },
