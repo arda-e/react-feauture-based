@@ -1,0 +1,9 @@
+{
+  "entryPoints": ["src/index.tsx", "src/utils/index.ts", "src/stores/index.ts"],
+  "out": "./docs",
+  "name": "React Project",
+  "theme": "default",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true
+}
