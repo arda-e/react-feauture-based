@@ -13,6 +13,7 @@ export const store = configureStore({
     notifications: notificationReducer,
     error: errorReducer,
   },
+  devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
 })
 

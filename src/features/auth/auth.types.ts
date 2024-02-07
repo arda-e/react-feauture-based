@@ -30,12 +30,13 @@ export interface User {
   fullName: string
   userMail: string
   dateOfRegistration: string
-  groups: any[] // Define a Group interface if needed
+  groups: unknown[] // Define a Group interface if needed
   roles: Role[]
 }
 
 export interface AuthState {
   user: User | null
-  token: string | null
+  accessToken: string | null
   publicKey: string | null
+  refreshToken: string | null
 }

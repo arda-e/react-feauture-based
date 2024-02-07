@@ -8,7 +8,8 @@ import { AuthState, User } from './auth.types'
 
 const initialState: AuthState = {
   user: null,
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   publicKey: null,
 }
 
@@ -16,17 +17,24 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (state, action: PayloadAction<{ accessToken: string; user: User }>) => {
-      const { accessToken, user } = action.payload
-      state.token = accessToken
+    setCredentials: (state, action: PayloadAction<{ accessToken: string; refreshToken: string; user: User }>) => {
+      const { accessToken, user, refreshToken } = action.payload
+      state.accessToken = accessToken
+      state.refreshToken = refreshToken
       state.user = user
     },
     setPublicKey: (state, action: PayloadAction<{ publicKey: string }>) => {
       const { publicKey } = action.payload
       state.publicKey = publicKey
     },
+    refreshToken: (state, action: PayloadAction<{ accessToken: string; refreshToken: string }>) => {
+      const { accessToken, refreshToken } = action.payload
+      state.accessToken = accessToken
+      state.refreshToken = refreshToken
+    },
     logOut: (state) => {
-      state.token = null
+      state.accessToken = null
+      state.refreshToken = null
       state.user = null
       state.publicKey = null
     },
@@ -35,7 +43,7 @@ const authSlice = createSlice({
 
 const selectAuthState = (state: { auth: AuthState }) => state.auth
 export const selectCurrentUser = createSelector(selectAuthState, (auth: AuthState) => auth.user)
-export const selectCurrentToken = createSelector(selectAuthState, (auth: AuthState) => auth.token)
+export const selectCurrentToken = createSelector(selectAuthState, (auth: AuthState) => auth.accessToken)
 export const selectPublicKey = createSelector(selectAuthState, (auth: AuthState) => auth.publicKey)
-export const { setCredentials, logOut, setPublicKey } = authSlice.actions
+export const { setCredentials, logOut, setPublicKey, refreshToken } = authSlice.actions
 export default authSlice.reducer
