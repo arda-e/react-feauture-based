@@ -7,14 +7,20 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from '@/stores'
 import { AppRoutes } from '@/routes'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
+
+let persistor = persistStore(store)
 
 const App = () => {
   return (
     <>
       <Provider store={store}>
-        <Router>
-          <AppRoutes />
-        </Router>
+        <PersistGate persistor={persistor}>
+          <Router>
+            <AppRoutes />
+          </Router>
+        </PersistGate>
       </Provider>
     </>
   )
