@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useGetPublicKeyQuery, useLoginMutation } from '../../auth.api'
 import { LoginRequest, LoginRequestSchema, LoginResponse } from '../../auth.dto'
 import { useNavigate } from 'react-router-dom'
-import { UseMutationResult } from '@/api/api.types'
+import { UseMutationResult } from '@/api'
 
 interface UseLoginFormReturn {
   login: ReturnType<typeof useLoginMutation>[0]
