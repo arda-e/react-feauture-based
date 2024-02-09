@@ -1,6 +1,7 @@
-import { apiSlice } from '@/stores/api'
+import { apiSlice } from '@/api/api'
 import { GetPublicKeyResponse, LoginRequest, LoginResponse, LogoutRequest, LogoutResponse } from './auth.dto'
-import { logOut, setCredentials, setPublicKey } from './auth.slice'
+import { setPublicKey } from './auth.slice'
+import { setCredentials, logOut } from '@/stores/store.sharedActions'
 import { setApiError } from '../error'
 import { ApiError } from '../error/error.types'
 

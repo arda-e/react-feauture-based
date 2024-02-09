@@ -5,7 +5,6 @@ export type UseMutationResult<T> = {
   error?: unknown // Error result if present
   endpointName?: string // The name of the given endpoint for the mutation
   fulfilledTimestamp?: number // Timestamp for when the mutation was completed
-
   // Derived request status booleans
   isUninitialized: boolean // Mutation has not been fired yet
   isLoading: boolean // Mutation has been fired and is awaiting a response
@@ -14,4 +13,11 @@ export type UseMutationResult<T> = {
   startedTimeStamp?: number // Timestamp for when the latest mutation was initiated
 
   reset: () => void // A method to manually unsubscribe from the mutation call and reset the result to the uninitialized state
+}
+
+export interface ResfreshResponse {
+  data: {
+    accessToken: string
+    refreshToken: string
+  }
 }
