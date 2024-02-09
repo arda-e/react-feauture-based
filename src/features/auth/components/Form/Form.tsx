@@ -13,7 +13,10 @@ const Form = () => {
 
   const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
     await login({ username: data.username, password: data.password })
-    result.isSuccess && navigateToHomePage()
+  }
+
+  if (result.isSuccess) {
+    navigateToHomePage()
   }
 
   return (
