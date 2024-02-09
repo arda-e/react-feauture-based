@@ -3,11 +3,6 @@ import { FormProvider, SubmitHandler } from 'react-hook-form'
 import useLoginForm from './useLoginForm'
 import { LoginRequest } from '../../auth.dto'
 
-/**
- * Component for showing details of the user.
- *
- * @component
- */
 const Form = () => {
   const { login, result, methods, navigateToHomePage } = useLoginForm()
 
@@ -15,23 +10,29 @@ const Form = () => {
     await login({ username: data.username, password: data.password })
   }
 
-  if (result.isSuccess) {
-    navigateToHomePage()
-  }
+  if (result.isSuccess) navigateToHomePage()
 
   return (
     <>
       <FormProvider {...methods}>
         <form
           id="userLoginForm"
-          className=""
+          className="bg-white shadow-md shadow-gray-200 rounded-md px-8 pt-6 pb-8 mb-4 border-gray-200 border-2 flex flex-col"
           onSubmit={methods.handleSubmit(onSubmit)}
         >
-          <div id="userLoginForm__header">form</div>
+          <div
+            id="userLoginForm__header"
+            className="font-semibold text-3xl text-gray-600"
+          >
+            Login
+          </div>
           {result.isLoading ? (
             <div>Loading...</div>
           ) : (
-            <div id="userLoginForm__body">
+            <div
+              id="userLoginForm__body"
+              className="flex flex-col gap-4 my-4"
+            >
               {/**
                * //TODO: Replace input with custom input component
                * */}

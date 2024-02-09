@@ -1,5 +1,6 @@
 import React from 'react'
 import { useGetDevicesQuery } from '../../device.api'
+import DeviceCard from '../../components/DeviceCard/DeviceCard'
 
 const DeviceList = () => {
   const { data, error, isLoading } = useGetDevicesQuery()
@@ -13,12 +14,16 @@ const DeviceList = () => {
   }
 
   return (
-    <div className="flex gap-4">
+    <div className="grid grid-cols-4 grid-rows-4 gap-4 m-8">
       {data?.map((device) => {
         return (
-          <div key={device.id}>
-            {device.deviceId} - {device.deviceModel} - {device.brand} - {device.deviceStatus}
-          </div>
+          <DeviceCard
+            key={device.id}
+            deviceId={device.id}
+            deviceModel={device.deviceModel}
+            deviceStatus={device.deviceStatus}
+            brand={device.brand}
+          />
         )
       })}
     </div>
